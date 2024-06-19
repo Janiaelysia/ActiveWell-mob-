@@ -1,4 +1,3 @@
-import 'package:activewell_new/pages/about.dart';
 import 'package:activewell_new/pages/profiles/edit_profile_screen.dart';
 import 'package:activewell_new/pages/sign_in.dart';
 import 'package:activewell_new/screens/auth/edit_password_screen.dart';
@@ -112,25 +111,25 @@ class _AccountPageState extends ConsumerState<AccountPage> {
                         ),
                         title: Text("Settings"),
                       ),
-                      SizedBox(height: 10),
-                      ListTile(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => AboutPage()),
-                          );
-                        },
-                        tileColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
-                        leading: Icon(
-                          Icons.info,
-                          color: Colors.grey,
-                        ),
-                        title: Text("About Us"),
-                      ),
+                      // SizedBox(height: 10),
+                      // ListTile(
+                      //   onTap: () {
+                      //     Navigator.push(
+                      //       context,
+                      //       MaterialPageRoute(
+                      //           builder: (context) => AboutPage()),
+                      //     );
+                      //   },
+                      //   tileColor: Colors.white,
+                      //   shape: RoundedRectangleBorder(
+                      //       borderRadius:
+                      //           BorderRadius.all(Radius.circular(10))),
+                      //   leading: Icon(
+                      //     Icons.info,
+                      //     color: Colors.grey,
+                      //   ),
+                      //   title: Text("About Us"),
+                      // ),
                       SizedBox(height: 10),
                       //Edit password
                       ListTile(

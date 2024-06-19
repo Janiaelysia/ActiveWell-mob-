@@ -1,74 +1,81 @@
 import 'package:flutter/material.dart';
-import 'package:activewell_new/services/favoriteVideo_service.dart';
+import 'package:activewell_new/services/favoriteRecipe_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class VideosEdo extends ConsumerStatefulWidget {
-  const VideosEdo({super.key});
+class RecipesPage extends ConsumerStatefulWidget {
+  const RecipesPage({super.key});
 
   @override
-  ConsumerState<VideosEdo> createState() => _VideosEdoState();
+  ConsumerState<RecipesPage> createState() => _RecipesPageState();
 }
 
-class _VideosEdoState extends ConsumerState<VideosEdo>
+class _RecipesPageState extends ConsumerState<RecipesPage>
     with TickerProviderStateMixin {
+  // final favoriteRecipeProvider =
+  //     StateNotifierProvider<FavoriteRecipeProvider, List<RecipeModel>>((ref) {
+  //   // final firestore = FirebaseFirestore.instance;
+  //   // final user = FirebaseAuth.instance.currentUser;
+  //   return FavoriteRecipeProvider();
+  // });
+
   late final TabController _tabController;
 
-  List<String> _judulTenMin = [
-    "10 Min Intense Abs",
-    "10 Min Daily Abs",
-    "Toned Arms",
-    "Standing Abs",
-    "10 Min HIIT",
-    "Core & Arms",
+  List<String> _judulMeal = [
+    "Miso Salmon Nourish Bowl",
+    "Healthy Bulgogi Rice Bowl",
+    "Vegan Chicken Nuggets",
+    "Chipolata Veggie Bake",
+    "One Pot Chicken Veggie Soup",
+    "Vegan Cream of Mushroom Soup",
   ];
 
-  List<String> _imageTenMin = [
-    "https://static.chloeting.com/videos/663517d500c230367fe429e6/ed1cabb0-0c79-11ef-854a-c15ecb281560.jpeg", //1
-    "https://static.chloeting.com/videos/6584905afaede632c94fe126/23b147a0-a92c-11ee-9277-3b937f16846b.jpeg", //2
-    "https://static.chloeting.com/videos/65849175be23b57ce10a677b/6abe4220-aea3-11ee-8b18-8b55a7ba3b1c.jpeg", //3
-    "https://static.chloeting.com/videos/65d02d0887b4dd6dfaacfd5a/9b987f00-cfa5-11ee-9701-cfed4f69f9be.jpeg", //4
-    "https://static.chloeting.com/videos/63ae0fd749cf64962cb573f5/18930070-959b-11ed-9436-59d29cd71f8d.jpeg",
-    "https://static.chloeting.com/videos/62c4a9cfb88c73c70d9d55d4/84970330-fca7-11ec-a798-935d9eee8a63.jpeg",
+  List<String> _imageMeal = [
+    "https://static.chloeting.com/recipes/6200b37d382ba4ec17393dbd/images/miso-salmon-nourish-bowl-1.webp",
+    "https://static.chloeting.com/recipes/61fe31172a18c23f7d7f8f9e/images/healthy-bulgogi-rice-bowl-1.webp",
+    "https://static.chloeting.com/recipes/61ffb4e12a18c23f7d7f99cf/images/vegan-chicken-nuggets-1.jpeg",
+    "https://static.chloeting.com/recipes/61ff9985e75e851db89828e5/images/chipolata-veggie-bake-1.jpeg",
+    "https://static.chloeting.com/recipes/61ff7d1e2a18c23f7d7f9554/images/one-pot-chicken-veggie-soup-1.jpeg",
+    "https://static.chloeting.com/recipes/6299ad825db2ecae8ed41774/images/vegan-cream-of-mushroom-soup-1.jpeg",
   ];
 
-  List<String> _judulTwentyMin = [
-    "Full Body Flat Tummy",
-    "Do This and Get Fit",
-    "Complete Full Body Workout",
-    "Weight Loss Full Body HIIT",
-    "Full Body No Jumping",
-    "Cardio Abs",
-    "1.000 Reps Workout",
+  List<String> _judulBeverage = [
+    "Sugar-Free Lemonade",
+    "Milk Tea With Coffee Jelly",
+    "Banana-Free Chocolate Protein Smoothie",
+    "Best Vegan Matcha Latte",
+    "Matcha Latte With Mini Taro Balls",
+    "Pumpkin Spice Latte",
+    "3-Ingredient Strawberry Boba",
   ];
 
-  List<String> _imageTwentyMin = [
-    "https://static.chloeting.com/videos/61bbef772d47479a9df2358d/3ef80df0-5edd-11ec-b182-df31ae6aab45.jpeg",
-    "https://static.chloeting.com/videos/61bbfe1c2cb3b78eb6ac2c23/f989c480-5ee5-11ec-9a04-3fd984621d67.jpeg",
-    "https://static.chloeting.com/videos/61bbb9f2017bbb985e15f8b6/58abd990-5ebd-11ec-b182-df31ae6aab45.jpeg",
-    "https://static.chloeting.com/videos/61bc29dc37778b5b830c6803/0d48b430-5f00-11ec-9fce-4781ba46fa9b.jpeg",
-    "https://static.chloeting.com/videos/61ce510934185a9a5617671e/fc539460-69d1-11ec-88d2-07e5364d275e.jpeg",
-    "https://static.chloeting.com/videos/61bbd46652c5c9bf0f25508e/1cc34a70-5ecd-11ec-9a04-3fd984621d67.jpeg",
-    "https://static.chloeting.com/videos/61bbf3532cb3b78eb6ac2bf7/8c4e6a70-5edf-11ec-b8cd-2976cd667d03.jpeg",
+  List<String> _imageBeverage = [
+    "https://static.chloeting.com/recipes/6379e20bcab051845d4f5649/images/sugar-free-lemonade-1668932111579-1.jpeg",
+    "https://static.chloeting.com/recipes/62bc002599cef88f385586f8/images/milk-tea-with-coffee-jelly-1.jpeg",
+    "https://static.chloeting.com/recipes/61fe471de75e851db8982189/images/banana-free-chocolate-protein-smoothie-1.jpeg",
+    "https://static.chloeting.com/recipes/61fe48d5e75e851db89821d0/images/best-vegan-matcha-latte-1.jpeg",
+    "https://static.chloeting.com/recipes/62c24b49ea2d41402929f11c/images/matcha-latte-with-mini-taro-balls-1.jpeg",
+    "https://static.chloeting.com/recipes/6200ee602e702a81e5804ea8/images/pumpkin-spice-latte-1.jpeg",
+    "https://static.chloeting.com/recipes/62c3a3736f991137b34ceb32/images/3-ingredient-strawberry-boba-1.jpeg",
   ];
 
-  List<String> _judulStanding = [
-    "Lean Arms Workout",
-    "Standing Abs",
-    "Fat Burn",
-    "Calorie Burning HIIT",
-    "Standing Abs",
-    "Full Body Workout - No Planks",
-    "Weight Loss HIIT",
+  List<String> _judulSnack = [
+    "Baked Avocado Eggs",
+    "Vegan Mocha Yogurt Bowl",
+    "Scrambled Eggs with Shrimps",
+    "One Pot Rice Cooker Fried Rice",
+    "High Protein Cottage Cheese Pancakes",
+    "Easy Microwave Baked Potato",
+    "Vegan 'Scallop' and Cherry Tomato Pasta",
   ];
 
-  List<String> _imageStanding = [
-    "https://static.chloeting.com/videos/61bbdeaac3d293024898b867/3b4068b0-5ed3-11ec-b99f-c33e6b9468db.jpeg",
-    "https://static.chloeting.com/videos/61bbf2732cb3b78eb6ac2bf4/0666a170-5edf-11ec-b8cd-2976cd667d03.jpeg",
-    "https://static.chloeting.com/videos/61bbf2bd2d47479a9df235a2/327be0e0-5edf-11ec-883e-77d525cedf9b.jpeg",
-    "https://static.chloeting.com/videos/61bc1df44df7b918c30e8bb3/f49be300-5ef8-11ec-b4e8-6545cdfc138f.jpeg",
-    "https://static.chloeting.com/videos/6344d251ed61d9ae54297892/a408c1e0-4ec3-11ed-a3ce-b308361a3e05.jpeg",
-    "https://static.chloeting.com/videos/6289a4cfaff22d3c952a8b2d/da43cf30-d979-11ec-8387-814d61d6974c.jpeg",
-    "https://static.chloeting.com/videos/61ce4f20173d57799999a755/d8793960-69d0-11ec-88d2-07e5364d275e.jpeg",
+  List<String> _imageSnack = [
+    "https://static.chloeting.com/recipes/6200d5a52e702a81e5803c59/images/baked-avocado-eggs-1.webp",
+    "https://static.chloeting.com/recipes/64215da10b0e98db5eafe951/images/vegan-mocha-yogurt-bowl-1679908260906-1.webp",
+    "https://static.chloeting.com/recipes/62ce761fb88c73c70d95b4d9/images/scrambled-eggs-with-shrimps-1.webp",
+    "https://static.chloeting.com/recipes/6458633750181861834e8f59/images/one-pot-rice-cooker-fried-rice-1683514170037-1.webp",
+    "https://static.chloeting.com/recipes/641d676f6a4b8d9f710d4ab2/images/high-protein-cottage-cheese-pancakes-1679648626879-1.webp",
+    "https://static.chloeting.com/recipes/63fd4196b0fc5ec5bd7649d3/images/easy-microwave-baked-potato-1677541785445-1.webp",
+    "https://static.chloeting.com/recipes/6200b7f6f6b3f08bdababb83/images/vegan-scallop-and-cherry-tomato-pasta-1.webp",
   ];
 
   @override
@@ -90,7 +97,7 @@ class _VideosEdoState extends ConsumerState<VideosEdo>
         slivers: <Widget>[
           SliverAppBar(
             title: const Text(
-              'Videos',
+              'Recipes',
               style: TextStyle(color: Colors.white),
             ),
             pinned: true,
@@ -108,13 +115,13 @@ class _VideosEdoState extends ConsumerState<VideosEdo>
               controller: _tabController,
               tabs: const <Widget>[
                 Tab(
-                  child: Text('10 Mins'), // Ganti ikon menjadi teks "meal"
+                  child: Text('Meal'), // Ganti ikon menjadi teks "meal"
                 ),
                 Tab(
-                  child: Text('20 Mins +'),
+                  child: Text('Beverage'),
                 ),
                 Tab(
-                  child: Text('Standing'),
+                  child: Text('Snack'),
                 ),
               ],
             ),
@@ -124,7 +131,7 @@ class _VideosEdoState extends ConsumerState<VideosEdo>
               controller: _tabController,
               children: <Widget>[
                 ListView.builder(
-                  itemCount: _judulTenMin.length,
+                  itemCount: _judulMeal.length,
                   itemBuilder: (context, index) {
                     return Container(
                       height: MediaQuery.of(context).size.height * 0.125,
@@ -155,8 +162,8 @@ class _VideosEdoState extends ConsumerState<VideosEdo>
                               child: AspectRatio(
                                 aspectRatio: 16 / 9,
                                 child: Image.network(
-                                  _imageTenMin[index],
-                                  fit: BoxFit.contain,
+                                  _imageMeal[index],
+                                  fit: BoxFit.cover,
                                 ),
                               ),
                             ),
@@ -169,26 +176,22 @@ class _VideosEdoState extends ConsumerState<VideosEdo>
                               children: [
                                 SizedBox(
                                   child: Text(
-                                    _judulTenMin[index],
+                                    _judulMeal[index],
                                     style: TextStyle(fontSize: 14),
                                   ),
                                   width: 80,
                                 ),
                                 Expanded(
                                   child: IconButton(
-                                    icon: Icon(
-                                      Icons.bookmark,
-                                    ),
+                                    icon: Icon(Icons.bookmark),
                                     onPressed: () async {
-                                      final favoriteVideoProviderNotifier =
-                                          ref.read(videoProvider.notifier);
-                                      await favoriteVideoProviderNotifier
-                                          .addFavoriteVideos(
+                                      final favoriteRecipeProviderNotifier =
+                                          ref.read(recipeProvider.notifier);
+                                      await favoriteRecipeProviderNotifier
+                                          .addFavoriteRecipes(
                                         context,
-                                        _judulTenMin[index],
-                                        'Sample Description',
-                                        'http://example.com/video.mp4',
-                                        _imageTenMin[index],
+                                        _judulMeal[index],
+                                        _imageMeal[index],
                                       );
                                       // Handle save button onPressed event
                                     },
@@ -203,7 +206,7 @@ class _VideosEdoState extends ConsumerState<VideosEdo>
                   },
                 ),
                 ListView.builder(
-                  itemCount: _judulTwentyMin.length,
+                  itemCount: _judulBeverage.length,
                   itemBuilder: (context, index) {
                     return Container(
                       height: MediaQuery.of(context).size.height * 0.125,
@@ -225,6 +228,7 @@ class _VideosEdoState extends ConsumerState<VideosEdo>
                           EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Flexible(
                             flex: 2,
@@ -233,8 +237,8 @@ class _VideosEdoState extends ConsumerState<VideosEdo>
                               child: AspectRatio(
                                 aspectRatio: 16 / 9,
                                 child: Image.network(
-                                  _imageTwentyMin[index],
-                                  fit: BoxFit.contain,
+                                  _imageBeverage[index],
+                                  fit: BoxFit.cover,
                                 ),
                               ),
                             ),
@@ -247,7 +251,7 @@ class _VideosEdoState extends ConsumerState<VideosEdo>
                               children: [
                                 SizedBox(
                                   child: Text(
-                                    _judulTwentyMin[index],
+                                    _judulBeverage[index],
                                     style: TextStyle(fontSize: 14),
                                   ),
                                   width: 80,
@@ -256,15 +260,13 @@ class _VideosEdoState extends ConsumerState<VideosEdo>
                                   child: IconButton(
                                     icon: Icon(Icons.bookmark),
                                     onPressed: () async {
-                                      final favoriteVideoProviderNotifier =
-                                          ref.read(videoProvider.notifier);
-                                      await favoriteVideoProviderNotifier
-                                          .addFavoriteVideos(
+                                      final favoriteRecipeProviderNotifier =
+                                          ref.read(recipeProvider.notifier);
+                                      await favoriteRecipeProviderNotifier
+                                          .addFavoriteRecipes(
                                         context,
-                                        _judulTwentyMin[index],
-                                        'Sample Description',
-                                        'http://example.com/video.mp4',
-                                        _imageTwentyMin[index],
+                                        _judulBeverage[index],
+                                        _imageBeverage[index],
                                       );
                                       // Handle save button onPressed event
                                     },
@@ -279,7 +281,7 @@ class _VideosEdoState extends ConsumerState<VideosEdo>
                   },
                 ),
                 ListView.builder(
-                  itemCount: _judulStanding.length,
+                  itemCount: _judulSnack.length,
                   itemBuilder: (context, index) {
                     return Container(
                       height: MediaQuery.of(context).size.height * 0.125,
@@ -301,6 +303,7 @@ class _VideosEdoState extends ConsumerState<VideosEdo>
                           EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Flexible(
                             flex: 2,
@@ -309,8 +312,8 @@ class _VideosEdoState extends ConsumerState<VideosEdo>
                               child: AspectRatio(
                                 aspectRatio: 16 / 9,
                                 child: Image.network(
-                                  _imageStanding[index],
-                                  fit: BoxFit.contain,
+                                  _imageSnack[index],
+                                  fit: BoxFit.cover,
                                 ),
                               ),
                             ),
@@ -323,7 +326,7 @@ class _VideosEdoState extends ConsumerState<VideosEdo>
                               children: [
                                 SizedBox(
                                   child: Text(
-                                    _judulStanding[index],
+                                    _judulSnack[index],
                                     style: TextStyle(fontSize: 14),
                                   ),
                                   width: 80,
@@ -332,15 +335,13 @@ class _VideosEdoState extends ConsumerState<VideosEdo>
                                   child: IconButton(
                                     icon: Icon(Icons.bookmark),
                                     onPressed: () async {
-                                      final favoriteVideoProviderNotifier =
-                                          ref.read(videoProvider.notifier);
-                                      await favoriteVideoProviderNotifier
-                                          .addFavoriteVideos(
+                                      final favoriteRecipeProviderNotifier =
+                                          ref.read(recipeProvider.notifier);
+                                      await favoriteRecipeProviderNotifier
+                                          .addFavoriteRecipes(
                                         context,
-                                        _judulStanding[index],
-                                        'Sample Description',
-                                        'http://example.com/video.mp4',
-                                        _imageStanding[index],
+                                        _judulSnack[index],
+                                        _imageSnack[index],
                                       );
                                       // Handle save button onPressed event
                                     },
