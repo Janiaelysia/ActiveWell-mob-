@@ -41,6 +41,15 @@ class _EditPasswordScreenState extends State<EditPasswordScreen> {
       return;
     }
 
+    if (_newPasswordController.text != _confirmPasswordController.text) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+            content: Text(
+                'Password baru dan konfirmasi password tidak sama. Silakan coba lagi.')),
+      );
+      return;
+    }
+
     setState(() {
       _isLoading = true;
     });
@@ -54,17 +63,23 @@ class _EditPasswordScreenState extends State<EditPasswordScreen> {
           password: _oldPasswordController.text,
         );
         await user.reauthenticateWithCredential(credential);
-
-        // Update the password
         await user.updatePassword(_newPasswordController.text);
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Password updated successfully!')),
+          SnackBar(content: Text('Password berhasil diperbarui!')),
         );
         Navigator.pop(context);
       }
     } on FirebaseAuthException catch (e) {
+      String errorMessage;
+      if (e.code == 'wrong-password') {
+        errorMessage =
+            'Password lama yang Anda masukkan salah. Silakan coba lagi.';
+      } else {
+        errorMessage =
+            'Password lama yang Anda masukkan salah. Silakan coba lagi.';
+      }
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Failed to update password: ${e.message}')),
+        SnackBar(content: Text(errorMessage)),
       );
     } finally {
       setState(() {

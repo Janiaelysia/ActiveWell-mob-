@@ -1,4 +1,4 @@
-import 'package:activewell_new/screens/home_screen.dart';
+import 'package:activewell_new/screens/auth/auth_screen.dart';
 import 'package:activewell_new/services/auth_service.dart';
 import 'package:flutter/material.dart';
 
@@ -355,7 +355,7 @@ class _FormContentState extends State<_FormContent> {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => HomeScreen(),
+                          builder: (context) => AuthScreen(),
                         ),
                       );
                     }).catchError((e) {
